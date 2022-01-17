@@ -2,7 +2,7 @@
 
 namespace Strategy_CreateAnInvoice.Business.Strategies.Invoice
 {
-    interface IInvoiceStrategy
+    public interface IInvoiceStrategy
     {
         public void Generate(Order order);
     }

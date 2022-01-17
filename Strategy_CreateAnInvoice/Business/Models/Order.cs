@@ -1,4 +1,6 @@
-﻿using Strategy_CreateAnInvoice.Business.Strategies.SalesTax;
+﻿using Strategy_CreateAnInvoice.Business.Strategies.Invoice;
+using Strategy_CreateAnInvoice.Business.Strategies.SalesTax;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +24,8 @@ namespace Strategy_CreateAnInvoice.Business.Models
 
         public ISalesTaxStrategy SalesTaxStrategy { get; set; }
 
+        public IInvoiceStrategy InvoiceStrategy { get; set; }
+
         public decimal GetTax()
         {
             if(SalesTaxStrategy == null)
@@ -30,6 +34,20 @@ namespace Strategy_CreateAnInvoice.Business.Models
             }
 
             return SalesTaxStrategy.GetTaxFor(this);
+        }
+
+        public void FinalizeOrder()
+        {
+            if (SelectedPayments.Any(x => x.PaymentProvider == PaymentProvider.Invoice)
+                && AmountDue > 0
+                && ShippingStatus == ShippingStatus.WaitingForPayment)
+            {
+                InvoiceStrategy.Generate(this);
+
+                ShippingStatus = ShippingStatus.ReadyForShippment;
+            }
+            else if (AmountDue > 0)
+                throw new Exception("Unable to finalize order");
         }
     }
 
