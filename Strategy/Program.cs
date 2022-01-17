@@ -19,6 +19,7 @@ namespace Strategy
 
             // The strategy pattern is a behavioral design pattern and the idea is that you
             // choose a suitable strategy based on user input
+            //  => Cleaner approach with single responsibility in mind
             //
             // As with other design patterns, the purpose is to make the application more testable,
             // extensible and easier to work with
