@@ -30,6 +30,21 @@ namespace Strategy.Business.Models
 
             return SalesTaxStrategy.GetTaxFor(this);
         }
+
+        /// <summary>
+        /// An alternative approach to use the strategy pattern
+        /// </summary>
+        /// <returns></returns>
+        public decimal GetTaxAlternativeApproach(ISalesTaxStrategy salesTaxStrategy = default)
+        {
+            // if the strategy is not passed, we just the one that is set on our particular context
+            var strategy = salesTaxStrategy ?? SalesTaxStrategy;
+
+            if (strategy == null)
+                return 0m;
+
+            return strategy.GetTaxFor(this);
+        }
     }
 
     public class ShippingDetails
