@@ -25,6 +25,8 @@ namespace Strategy
             // extensible and easier to work with
             var destination = order.ShippingDetails.DestinationCountry.ToLowerInvariant();
 
+            // So we took the code which was coupled into our order, which was difficult to test
+            // and refactored it to the strategy pattern
             if (destination == "sweden")
                 order.SalesTaxStrategy = new SwedenSalesTaxStrategy();
             else if (destination == "us")
