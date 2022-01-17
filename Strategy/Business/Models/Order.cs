@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Strategy.Business.Strategies.SalesTax;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Strategy.Business.Models
@@ -19,21 +20,15 @@ namespace Strategy.Business.Models
 
         public ShippingDetails ShippingDetails { get; set; }
 
+        public ISalesTaxStrategy SalesTaxStrategy { get; set; }
+
+        // We do not want the order itself, 'the context', to know about the particular implementation
         public decimal GetTax()
         {
-            var destination = ShippingDetails.DestinationCountry.ToLowerInvariant();
+            if (SalesTaxStrategy == null)
+                return 0m;
 
-            if (destination == "sweden")
-            {
-                
-            }
-
-            if (destination == "us")
-            {
-                
-            }
-
-            return 0m;
+            return SalesTaxStrategy.GetTaxFor(this);
         }
     }
 

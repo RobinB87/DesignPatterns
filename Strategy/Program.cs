@@ -1,4 +1,5 @@
 ﻿using Strategy.Business.Models;
+using Strategy.Business.Strategies.SalesTax;
 using System;
 
 namespace Strategy
@@ -15,7 +16,16 @@ namespace Strategy
                     DestinationCountry = "Sweden"
                 }
             };
-            
+
+            // The strategy pattern is a behavioral design pattern and the idea is that you
+            // choose a suitable strategy based on user input
+            var destination = order.ShippingDetails.DestinationCountry.ToLowerInvariant();
+
+            if (destination == "sweden")
+                order.SalesTaxStrategy = new SwedenSalesTaxStrategy();
+            else if (destination == "us")
+                order.SalesTaxStrategy = new UsaSalesTaxStrategy();
+
             order.LineItems.Add(new Item("CSHARP_SMORGASBORD", "C# Smorgasbord", 100m, ItemType.Literature), 1);
             order.LineItems.Add(new Item("CONSULTING", "Building a website", 100m, ItemType.Service), 1);
 

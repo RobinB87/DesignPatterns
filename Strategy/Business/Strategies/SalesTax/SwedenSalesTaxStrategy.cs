@@ -8,7 +8,7 @@ namespace Strategy.Business.Strategies.SalesTax
         // in to the order, has made sure it is the appropriate strategy
         public decimal GetTaxFor(Order order)
         {
-            var destination = order.ShippingDetails.DestinationCountry;
+            var destination = order.ShippingDetails.DestinationCountry.ToLowerInvariant();
 
             if (destination == order.ShippingDetails.OriginCountry.ToLowerInvariant())
             {
