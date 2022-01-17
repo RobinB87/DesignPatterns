@@ -19,6 +19,9 @@ namespace Strategy
 
             // The strategy pattern is a behavioral design pattern and the idea is that you
             // choose a suitable strategy based on user input
+            //
+            // As with other design patterns, the purpose is to make the application more testable,
+            // extensible and easier to work with
             var destination = order.ShippingDetails.DestinationCountry.ToLowerInvariant();
 
             if (destination == "sweden")
