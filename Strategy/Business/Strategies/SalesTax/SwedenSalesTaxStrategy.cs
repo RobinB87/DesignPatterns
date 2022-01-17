@@ -6,6 +6,8 @@ namespace Strategy.Business.Strategies.SalesTax
     {
         // When this strategy is applied we can trust that whoever is injecting this implementation
         // in to the order, has made sure it is the appropriate strategy
+        //
+        // Making changes does not affect other countries
         public decimal GetTaxFor(Order order)
         {
             var totalTax = 0m;
